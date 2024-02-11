@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://ACBerny22-s-workspace-2m8h86.us-east-1.xata.sh/db/my-test-db",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}

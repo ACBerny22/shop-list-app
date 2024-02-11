@@ -1,0 +1,16 @@
+{
+  "id": "mig_cn44vusebubn8r42d9eg",
+  "parentID": "mig_cn44vt0gq5mo5cdej6l0",
+  "checksum": "1:14f53e2d91b3d2d65b85fb0a3c494e82b506f3b2defab5470119f83c5c2d768f",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "Name",
+          "type": "string"
+        },
+        "table": "List"
+      }
+    }
+  ]
+}
