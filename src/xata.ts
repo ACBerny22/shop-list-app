@@ -8,7 +8,7 @@ import type {
 
 const tables = [
   {
-    name: "List",
+    name: "Boards",
     columns: [
       { name: "name", type: "string" },
       { name: "user", type: "string" },
@@ -19,11 +19,11 @@ const tables = [
 export type SchemaTables = typeof tables;
 export type InferredTypes = SchemaInference<SchemaTables>;
 
-export type List = InferredTypes["List"];
-export type ListRecord = List & XataRecord;
+export type Boards = InferredTypes["Boards"];
+export type BoardsRecord = Boards & XataRecord;
 
 export type DatabaseSchema = {
-  List: ListRecord;
+  Boards: BoardsRecord;
 };
 
 const DatabaseClient = buildClient();
