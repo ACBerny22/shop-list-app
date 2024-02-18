@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import { ClerkProvider } from "@clerk/nextjs";
+import QProvComp from "@/components/QProvComp";
+import Footer from "@/components/Footer";
+import TProvider from "@/components/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
+const manrope = Manrope({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
     title: "Easy Kan Ban",
@@ -13,17 +17,24 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
     children,
-}: Readonly<{
+}: {
     children: React.ReactNode;
-}>) {
+}) {
     return (
-        <ClerkProvider>
-            <html lang="en">
-                <body className={inter.className}>
-                    <Nav />
-                    <div className="p-5">{children}</div>
-                </body>
-            </html>
-        </ClerkProvider>
+        <html lang="en" suppressHydrationWarning>
+            <body className={manrope.className}>
+                <ClerkProvider>
+                    <TProvider>
+                        <QProvComp>
+                            <Nav />
+                            <div className="px-5 py-10 dark:bg-black">
+                                {children}
+                            </div>
+                            <Footer />
+                        </QProvComp>
+                    </TProvider>
+                </ClerkProvider>
+            </body>
+        </html>
     );
 }

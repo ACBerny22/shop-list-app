@@ -13,6 +13,22 @@ const tables = [
       { name: "name", type: "string" },
       { name: "user", type: "string" },
     ],
+    revLinks: [{ column: "board", table: "Task" }],
+  },
+  {
+    name: "Task",
+    columns: [
+      { name: "name", type: "string" },
+      { name: "status", type: "string", notNull: true, defaultValue: "todo" },
+      { name: "description", type: "text" },
+      { name: "board", type: "link", link: { table: "Boards" } },
+      { name: "importance", type: "link", link: { table: "Importance" } },
+    ],
+  },
+  {
+    name: "Importance",
+    columns: [{ name: "Level", type: "string" }],
+    revLinks: [{ column: "importance", table: "Task" }],
   },
 ] as const;
 
@@ -22,8 +38,16 @@ export type InferredTypes = SchemaInference<SchemaTables>;
 export type Boards = InferredTypes["Boards"];
 export type BoardsRecord = Boards & XataRecord;
 
+export type Task = InferredTypes["Task"];
+export type TaskRecord = Task & XataRecord;
+
+export type Importance = InferredTypes["Importance"];
+export type ImportanceRecord = Importance & XataRecord;
+
 export type DatabaseSchema = {
   Boards: BoardsRecord;
+  Task: TaskRecord;
+  Importance: ImportanceRecord;
 };
 
 const DatabaseClient = buildClient();

@@ -3,10 +3,15 @@ import { getXataClient } from "@/xata";
 import { clerkClient } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { revalidatePath } from "next/cache";
+import { MdAdd, MdEdit } from "react-icons/md";
+import Editboard from "@/components/Editboard";
+import BoardCard from "@/components/BoardCard";
 
 interface pageProps {}
 
 export default async function page({}) {
+    revalidatePath("/dashboard");
     const { userId } = auth();
     console.log(userId);
     const xataClient = getXataClient();
@@ -16,35 +21,34 @@ export default async function page({}) {
     }
 
     const user = await clerkClient.users.getUser(userId);
-    const lists = await xataClient.db.Boards.filter({
+    const boards = await xataClient.db.Boards.filter({
         user: userId,
     }).getMany();
 
+    console.log(boards);
+
     return (
-        <div className="flex flex-col gap-10">
-            <div className="flex flex-col gap-5 sm:flex-row justify-between">
-                <h1 className="text-2xl lg:text-3xl font-bold text-slate-700">
+        <div className="flex flex-col gap-10 h-screen dark:text-white">
+            <div className="flex flex-col gap-7 sm:flex-row justify-between">
+                <h1 className="text-2xl lg:text-3xl font-bold text-neutral-900 dark:text-white">
                     Welcome, {user?.firstName}
-                    {user?.lastName}!
+                    {user?.lastName}
                 </h1>
-                <button className="p-3 font-semibold bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors ease-out">
-                    Create New Board
+                <button
+                    className="flex gap-1 items-center p-3 font-semibold bg-neutral-950 text-white rounded-lg hover:bg-white hover:text-black border border-neutral-900 transition-colors ease-out
+                        dark:text-neutral-950 dark:bg-white dark:hover:bg-neutral-950 dark:hover:text-white"
+                >
+                    <MdAdd className="text-xl"></MdAdd>Create New Board
                 </button>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
-                {lists.map((list) => (
-                    <Link
-                        href={`/board/${list.id}`}
-                        key={list.id}
-                        className="border p-5 rounded-lg shadow-lg"
-                    >
-                        <h1 className="mb-5 font-semibold text-slate-700">
-                            {list.name}
-                        </h1>
-                        <span className="text-sm rounded-full text-slate-400">
-                            {list.xata.createdAt.toDateString()}
-                        </span>
-                    </Link>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+                {boards.map((board) => (
+                    <BoardCard
+                        key={board.id}
+                        id={board.id}
+                        name={board.name as string}
+                        createdAt={board.xata.createdAt}
+                    ></BoardCard>
                 ))}
             </div>
         </div>
