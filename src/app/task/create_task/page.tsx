@@ -27,40 +27,45 @@ export default function Page({ params }: any) {
     };
 
     return (
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex flex-col justify-center items-center h-svh">
             <Link
                 href={`/board/${searchParams.get("boardId")}`}
                 className="absolute top-24 left-5 flex gap-3 items-center group"
             >
                 <MdArrowBack className="text-3xl hover:-translate-x-1 transition" />
-                <span className="hidden group-hover:block font-semibold">Back to board</span>
+                <span className="hidden group-hover:block font-semibold">
+                    Back to board
+                </span>
             </Link>
 
-            <div className="text-center">
-                <h1 className="text-xl font-semibold text-neutral-900 dark:text-white  mb-10">
+            <div className="border p-10 w-2/5 rounded-lg bg-white dark:bg-neutral-950 dark:border-neutral-700">
+                <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-10">
                     Create new task
                 </h1>
                 <form action={callToCreateTask} className="flex flex-col gap-5">
-                    <div>
+                    <div className="flex flex-col justify-start items-start gap-2">
+                        <label className="font-semibold">Name:</label>
                         <input
                             type="text"
                             name="name"
                             placeholder="Task name"
-                            className="p-5 border rounded-lg dark:bg-black"
+                            className="px-4 py-3 border rounded-lg dark:bg-neutral-950 dark:border-neutral-700 w-full"
                         />
                     </div>
-                    <div>
-                        <input
-                            type="text"
+                    <div className="flex flex-col justify-start items-start gap-2">
+                        <label className="font-semibold">Description:</label>
+                        <textarea
                             name="description"
+                            rows={5}
                             placeholder="Task description"
-                            className="p-5 border rounded-lg dark:bg-black"
+                            className="px-4 py-3  border rounded-lg dark:bg-neutral-950 dark:border-neutral-700  w-full"
                         />
                     </div>
-                    <div>
+                    <div className="flex flex-col justify-start items-start gap-2">
+                        <label className="font-semibold">Status:</label>
                         <select
                             name="status"
-                            className="p-5 border rounded-lg w-full dark:bg-black"
+                            className="px-4 py-3 border rounded-lg w-full dark:bg-neutral-950 dark:border-neutral-700"
                         >
                             <option selected disabled>
                                 Choose a Status
@@ -70,13 +75,14 @@ export default function Page({ params }: any) {
                             <option value="done">Done</option>
                         </select>
                     </div>
-                    <div>
+                    <div className="flex flex-col justify-start items-start gap-2">
+                        <label className="font-semibold">Importance:</label>
                         <select
                             name="importance"
-                            className="p-5 border rounded-lg w-full dark:bg-black"
+                            className="px-4 py-3  border rounded-lg w-full dark:bg-neutral-950 dark:border-neutral-700"
                         >
                             <option selected disabled>
-                                Choose the Improtance
+                                Choose the priority
                             </option>
 
                             <option value="rec_cn7580nmpsqufoolsncg">

@@ -27,7 +27,7 @@ export default function RootLayout({
                     <TProvider>
                         <QProvComp>
                             <Nav />
-                            <div className="px-5 py-10 dark:bg-black">
+                            <div className="px-5 py-10 dark:bg-[#050505]">
                                 {children}
                             </div>
                             <Footer />

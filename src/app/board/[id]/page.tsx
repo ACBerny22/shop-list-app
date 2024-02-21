@@ -20,11 +20,6 @@ interface pageProps {
     };
 }
 
-interface updatedTask {
-    id: string;
-    status: string;
-}
-
 export default function Page({ ...props }: pageProps) {
     const getBoardInfo = async () => {
         const data = await fetch(`/api/board/${props.params.id}`);
@@ -39,7 +34,6 @@ export default function Page({ ...props }: pageProps) {
 
         const json2 = await tasks.json();
         setTasks(json2.content);
-        console.log(json2.content);
 
         return json;
     };
@@ -96,8 +90,6 @@ export default function Page({ ...props }: pageProps) {
                 // Handle errors
                 console.error("Error updating tasks:", error);
             });
-
-        console.log(updatedTasks);
     }, 2000); // Adjust the delay time as needed
 
     useEffect(() => {
@@ -125,7 +117,7 @@ export default function Page({ ...props }: pageProps) {
                         <Link href={"/dashboard"}>
                             <MdArrowBack className="text-3xl hover:-translate-x-1 transition" />
                         </Link>
-                        <h1 className="text-3xl font-semibold ">
+                        <h1 className="text-3xl font-bold ">
                             {data.content.name}
                         </h1>
                     </div>
@@ -144,7 +136,7 @@ export default function Page({ ...props }: pageProps) {
                 </div>
                 <div className="grid lg:grid-cols-3 gap-5 text-neutral-800 ">
                     <div
-                        className="shadow-lg h-screen rounded-lg bg-white overflow-auto dark:bg-neutral-950"
+                        className="shadow-lg h-screen rounded-lg bg-white overflow-auto dark:bg-[#080808]  border dark:border-neutral-800"
                         onDragOver={(e) => e.preventDefault()}
                         onDrop={(e) => handleDrop(e, "todo")}
                     >
@@ -158,7 +150,7 @@ export default function Page({ ...props }: pageProps) {
                         ></Dropzone>
                     </div>
                     <div
-                        className="shadow-lg h-screen rounded-lg bg-white overflow-auto dark:bg-neutral-950"
+                        className="shadow-lg h-screen rounded-lg bg-white overflow-auto dark:bg-[#080808] border dark:border-neutral-800"
                         onDragOver={(e) => e.preventDefault()}
                         onDrop={(e) => handleDrop(e, "wip")}
                     >
@@ -172,7 +164,7 @@ export default function Page({ ...props }: pageProps) {
                         ></Dropzone>
                     </div>
                     <div
-                        className="shadow-lg h-screen rounded-lg bg-white overflow-auto dark:bg-neutral-950"
+                        className="shadow-lg h-screen rounded-lg bg-white overflow-auto dark:bg-[#080808] border dark:border-neutral-800"
                         onDragOver={(e) => e.preventDefault()}
                         onDrop={(e) => handleDrop(e, "done")}
                     >

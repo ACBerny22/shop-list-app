@@ -5,7 +5,7 @@ import { MdSpaceDashboard } from "react-icons/md";
 
 export default function Home() {
     const { userId } = auth();
-    console.log(userId);
+
     return (
         <main className="flex flex-col justify-center items-center h-screen text-center px-5 lg:px-20 gap-20">
             <div className="flex flex-col justify-center items-center gap-7 ">

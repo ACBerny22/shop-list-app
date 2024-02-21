@@ -20,15 +20,21 @@ export default function Dropzone({
     return (
         <>
             <div className={`w-full h-2 ${color} rounded-t-lg `}></div>
-            <div className="p-10">
-                <div className="flex items-center justify-between gap-10 dark:text-white">
+            <div className="p-8">
+                <div className="flex items-center justify-between dark:text-white">
                     <h1 className="text-2xl">{title}</h1>
                     <span className="text-xl font-semibold">
                         {tasks.filter((task) => task.status === status).length}
                     </span>
                 </div>
-                <hr className="my-8 h-0.5 border-t-0 bg-neutral-300 opacity-100" />
+                <hr className="my-5 h-[1px] border-t-0 bg-neutral-300 opacity-100 dark:bg-neutral-500" />
                 <div className="flex flex-col overflow-auto ">
+                    {tasks.filter((task) => task.status === status).length <=
+                        0 && (
+                        <span className=" text-center text-xl mt-10 font-light text-neutral-400 dark:text-neutral-600">
+                            Nothing over here...Yet
+                        </span>
+                    )}
                     {tasks
                         .filter((task) => task.status === status)
                         ?.map((task) => (

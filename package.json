@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.7",
+    "@tanstack/react-query": "^5.21.7",
     "@xata.io/client": "^0.29.0",
     "jotai": "^2.6.4",
     "lodash.debounce": "^4.0.8",

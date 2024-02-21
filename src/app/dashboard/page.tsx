@@ -13,7 +13,6 @@ interface pageProps {}
 export default async function page({}) {
     revalidatePath("/dashboard");
     const { userId } = auth();
-    console.log(userId);
     const xataClient = getXataClient();
 
     if (!userId) {
@@ -34,12 +33,13 @@ export default async function page({}) {
                     Welcome, {user?.firstName}
                     {user?.lastName}
                 </h1>
-                <button
+                <Link
+                    href={"/board/create"}
                     className="flex gap-1 items-center p-3 font-semibold bg-neutral-950 text-white rounded-lg hover:bg-white hover:text-black border border-neutral-900 transition-colors ease-out
                         dark:text-neutral-950 dark:bg-white dark:hover:bg-neutral-950 dark:hover:text-white"
                 >
                     <MdAdd className="text-xl"></MdAdd>Create New Board
-                </button>
+                </Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
                 {boards.map((board) => (
