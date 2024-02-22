@@ -29,7 +29,7 @@ export default async function page({}) {
     console.log(boards);
 
     return (
-        <div className="flex flex-col gap-10 h-screen dark:text-white">
+        <div className="flex flex-col gap-5 h-screen dark:text-white">
             <div className="flex flex-col gap-7 sm:flex-row justify-between">
                 <h1 className="text-2xl lg:text-3xl font-bold text-neutral-900 dark:text-white">
                     Welcome, {user?.firstName}
@@ -43,6 +43,9 @@ export default async function page({}) {
                     <MdAdd className="text-xl"></MdAdd>Create New Board
                 </Link>
             </div>
+            <h2 className="text-xl font-semibold text-neutral-800 dark:text-neutral-200">
+                Your boards ({boards.length})
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
                 {boards.map((board) => (
                     <BoardCard

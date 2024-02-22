@@ -6,9 +6,9 @@ interface DropzoneProps {
     tasks: any[];
     status: string;
     handleOnDrag: any;
-    handleTouchStart: any;
     title: string;
     color: string;
+    icon: any;
 }
 
 export default function Dropzone({
@@ -17,14 +17,16 @@ export default function Dropzone({
     handleOnDrag,
     title,
     color,
+    icon,
 }: DropzoneProps) {
     return (
         <>
             <div className={`w-full h-2 ${color} rounded-t-lg `}></div>
             <div className="p-8">
                 <div className="flex items-center justify-between dark:text-white">
+                    {icon}
                     <h1 className="text-2xl">{title}</h1>
-                    <span className="text-xl font-semibold">
+                    <span className="text-2xl font-semibold">
                         {tasks.filter((task) => task.status === status).length}
                     </span>
                 </div>
@@ -46,8 +48,6 @@ export default function Dropzone({
                                 key={task.id}
                                 draggable
                                 onDragStart={(e) => handleOnDrag(e, task.id)}
-                                onTouchStart={(e) => handleOnDrag(e, task)}
-                                onTouchMove={(e) => e.preventDefault()}
                                 className=""
                             >
                                 <Taskcard

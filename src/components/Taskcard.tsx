@@ -17,7 +17,7 @@ export default function Taskcard({ ...props }: TaskcardProps) {
             <h3 className="font-light dark:text-neutral-300">
                 {props?.description}
             </h3>
-            <div className="flex justify-between mt-3">
+            <div className="flex justify-between mt-4">
                 <span className="text-neutral-500 text-sm">
                     {new Date(props.date).toLocaleDateString()}
                 </span>

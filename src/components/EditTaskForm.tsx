@@ -4,9 +4,10 @@ import { ChangeEvent, useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchTaskById } from "@/actions/fetchTask";
 import LoadingSpinner from "./LoadingSpinner";
-import { useSetAtom } from "jotai";
 import { editTask } from "@/actions/editTask";
 import { useRouter } from "next/navigation";
+import { MdDelete } from "react-icons/md";
+import { deleteTask } from "@/actions/deleteTask";
 
 interface EditTaskFormProps {
     id: string;
@@ -16,10 +17,11 @@ export default function EditTaskForm({ id }: EditTaskFormProps) {
     const { data, error, isLoading, isFetching, isSuccess } = useQuery({
         queryKey: ["task"],
         queryFn: () => fetchTaskById(id as string),
+        refetchOnWindowFocus: false,
     });
 
     //task is data.
-    console.log(data);
+    console.log(id);
 
     const [formData, setFormData] = useState({
         name: data?.name,
@@ -40,6 +42,11 @@ export default function EditTaskForm({ id }: EditTaskFormProps) {
             ...prevData,
             [name]: value,
         }));
+    };
+
+    const callToDeleteTask = async () => {
+        await deleteTask(id as string);
+        router.back();
     };
 
     useEffect(() => {
@@ -69,10 +76,15 @@ export default function EditTaskForm({ id }: EditTaskFormProps) {
     }
 
     return (
-        <div className="border p-10 w-2/5 rounded-lg bg-white dark:bg-neutral-950 dark:border-neutral-700">
-            <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-10">
-                Edit task
-            </h1>
+        <div className="border p-10 lg:w-2/5 rounded-lg bg-white dark:bg-neutral-950 dark:border-neutral-700">
+            <div className="flex justify-between items-center mb-10">
+                <h1 className="text-3xl font-bold text-neutral-900 dark:text-white">
+                    Edit task
+                </h1>
+                <button onClick={callToDeleteTask}>
+                    <MdDelete className="text-3xl text-red-500" />
+                </button>
+            </div>
             <form action={callToEditTask} className="flex flex-col gap-5">
                 <div className="flex flex-col justify-start items-start gap-2">
                     <label className="font-semibold">Name:</label>
@@ -130,7 +142,7 @@ export default function EditTaskForm({ id }: EditTaskFormProps) {
                     </select>
                 </div>
                 <button className="bg-neutral-900 p-3 text-white font-semibold rounded-lg dark:bg-white dark:text-black">
-                    Create
+                    Confirm
                 </button>
             </form>
         </div>

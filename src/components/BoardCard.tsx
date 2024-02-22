@@ -19,7 +19,12 @@ export default async function BoardCard({
     name,
     createdAt,
 }: BoardCardProps) {
+    const queryClient = new QueryClient();
 
+    await queryClient.prefetchQuery({
+        queryKey: ["task"],
+        queryFn: () => fetchTaskByBoard(id),
+    });
 
     return (
         <Link
@@ -37,7 +42,9 @@ export default async function BoardCard({
                 {createdAt.toDateString()}
             </span>
             <hr className="my-3 h-[1px] border-t-0 bg-neutral-300 dark:bg-neutral-800 opacity-100" />
+            <HydrationBoundary state={dehydrate(queryClient)}>
                 <BoardCardStats id={id}></BoardCardStats>
+            </HydrationBoundary>
         </Link>
     );
 }

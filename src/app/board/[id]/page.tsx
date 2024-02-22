@@ -6,13 +6,16 @@ import { Task } from "@/xata";
 import { useAtom } from "jotai";
 import Link from "next/link";
 import { MdArrowBack, MdAdd } from "react-icons/md";
-import { startTransition, useEffect, useState } from "react"; // Import debounce function from lodash
+import { startTransition, useEffect } from "react"; // Import debounce function from lodash
 import debounce from "lodash.debounce";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Dropzone from "@/components/Dropzone";
 import TaskForm from "@/components/TaskForm";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
+import { IoMdDoneAll } from "react-icons/io";
+import { GrInProgress } from "react-icons/gr";
+import { MdOutlinePending } from "react-icons/md";
 
 interface pageProps {
     params: {
@@ -41,6 +44,7 @@ export default function Page({ ...props }: pageProps) {
     const { isLoading, data, isFetching } = useQuery({
         queryKey: ["board"],
         queryFn: getBoardInfo,
+        refetchOnWindowFocus: false,
     });
     const [tasks, setTasks] = useAtom(taskStore);
     const router = useRouter();
@@ -93,7 +97,7 @@ export default function Page({ ...props }: pageProps) {
                 // Handle errors
                 console.error("Error updating tasks:", error);
             });
-    }, 2000); // Adjust the delay time as needed
+    }, 1000); // Adjust the delay time as needed
 
     useEffect(() => {
         // Call the debounced function whenever tasks are updated
@@ -107,7 +111,7 @@ export default function Page({ ...props }: pageProps) {
         startTransition(() => router.refresh());
     };
 
-    if (isLoading) {
+    if (isLoading || isFetching) {
         return <LoadingSpinner />;
     }
 
@@ -145,11 +149,14 @@ export default function Page({ ...props }: pageProps) {
                     >
                         <Dropzone
                             title="To-do"
-                            color="bg-black dark:bg-white"
+                            //color="bg-black dark:bg-white"
+                            color="bg-sky-300/70 dark:bg-sky-400"
                             tasks={tasks}
                             handleOnDrag={handleOnDrag}
-                            handleTouchStart={handleTouchStart}
                             status="todo"
+                            icon={
+                                <MdOutlinePending className="text-3xl text-neutral-800 dark:text-neutral-100" />
+                            }
                         ></Dropzone>
                     </div>
                     <div
@@ -160,10 +167,13 @@ export default function Page({ ...props }: pageProps) {
                         <Dropzone
                             tasks={tasks}
                             title="Work in progress"
-                            color="bg-slate-500 dark:bg-white"
+                            //color="bg-slate-500 dark:bg-white"
+                            color="bg-amber-300/70 dark:bg-amber-400"
                             handleOnDrag={handleOnDrag}
-                            handleTouchStart={handleTouchStart}
                             status="wip"
+                            icon={
+                                <GrInProgress className="text-3xl text-neutral-800 dark:text-neutral-100" />
+                            }
                         ></Dropzone>
                     </div>
                     <div
@@ -174,10 +184,13 @@ export default function Page({ ...props }: pageProps) {
                         <Dropzone
                             tasks={tasks}
                             title="Done"
-                            color="bg-slate-800 dark:bg-white"
+                            //color="bg-slate-700 dark:bg-white"
+                            color="bg-lime-300/70 dark:bg-lime-400"
                             handleOnDrag={handleOnDrag}
-                            handleTouchStart={handleTouchStart}
                             status="done"
+                            icon={
+                                <IoMdDoneAll className="text-3xl text-neutral-800 dark:text-neutral-100" />
+                            }
                         ></Dropzone>
                     </div>
                 </div>
