@@ -36,5 +36,7 @@ export async function PUT(request: NextRequest) {
 
     const result = await xata.transactions.run(toTransaction as any);
 
-    return result;
+    return NextResponse.json({
+        content: result,
+    });
 }
