@@ -22,7 +22,9 @@ export default async function page({}) {
     const user = await clerkClient.users.getUser(userId);
     const boards = await xataClient.db.Boards.filter({
         user: userId,
-    }).getMany();
+    })
+        .sort("xata.createdAt", "desc")
+        .getMany();
 
     console.log(boards);
 

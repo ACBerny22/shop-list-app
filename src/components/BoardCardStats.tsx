@@ -1,6 +1,5 @@
 "use client";
 
-import { FC, useEffect } from "react";
 import { Task } from "@/xata";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
