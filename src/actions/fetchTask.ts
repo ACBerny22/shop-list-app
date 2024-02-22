@@ -10,3 +10,9 @@ export async function fetchTaskByBoard(board_id: string) {
         .getMany();
     return tasks;
 }
+
+export async function fetchTaskById(id: string) {
+    const xata = getXataClient();
+    const task = await xata.db.Task.read({ id });
+    return task;
+}

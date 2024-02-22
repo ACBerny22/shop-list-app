@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { taskStore, formOpenStore } from "@/stores/taskstore";
 import { Task } from "@/xata";
 import { useAtom } from "jotai";
@@ -38,7 +38,10 @@ export default function Page({ ...props }: pageProps) {
         return json;
     };
 
-    const { isLoading, data, isFetching } = useQuery("board", getBoardInfo);
+    const { isLoading, data, isFetching } = useQuery({
+        queryKey: ["board"],
+        queryFn: getBoardInfo,
+    });
     const [tasks, setTasks] = useAtom(taskStore);
     const router = useRouter();
     const draggedItem = useRef<Task | null>(null);

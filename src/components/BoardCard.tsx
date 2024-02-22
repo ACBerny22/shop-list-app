@@ -1,14 +1,12 @@
 import Link from "next/link";
 import Editboard from "./Editboard";
-import { XataClient } from "@/xata";
-import { Task } from "@/xata";
 import BoardCardStats from "./BoardCardStats";
-import { fetchTaskByBoard } from "@/actions/fetchTask";
 import {
     dehydrate,
-    QueryClient,
     HydrationBoundary,
+    QueryClient,
 } from "@tanstack/react-query";
+import { fetchTaskByBoard } from "@/actions/fetchTask";
 
 interface BoardCardProps {
     id: string;
@@ -21,9 +19,7 @@ export default async function BoardCard({
     name,
     createdAt,
 }: BoardCardProps) {
-    const tasks = await fetchTaskByBoard(id);
 
-    const queryClient = new QueryClient();
 
     return (
         <Link
@@ -41,7 +37,7 @@ export default async function BoardCard({
                 {createdAt.toDateString()}
             </span>
             <hr className="my-3 h-[1px] border-t-0 bg-neutral-300 dark:bg-neutral-800 opacity-100" />
-            <BoardCardStats tasks={tasks}></BoardCardStats>
+                <BoardCardStats id={id}></BoardCardStats>
         </Link>
     );
 }

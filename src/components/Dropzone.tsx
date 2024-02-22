@@ -1,5 +1,6 @@
 import { Task } from "@/xata";
 import Taskcard from "./Taskcard";
+import Link from "next/link";
 
 interface DropzoneProps {
     tasks: any[];
@@ -38,7 +39,10 @@ export default function Dropzone({
                     {tasks
                         .filter((task) => task.status === status)
                         ?.map((task) => (
-                            <div
+                            <Link
+                                href={{
+                                    pathname: `/task/${task.id}`,
+                                }}
                                 key={task.id}
                                 draggable
                                 onDragStart={(e) => handleOnDrag(e, task.id)}
@@ -53,7 +57,7 @@ export default function Dropzone({
                                     importance={task.importance}
                                     date={task.xata.createdAt}
                                 />
-                            </div>
+                            </Link>
                         ))}{" "}
                 </div>
             </div>
