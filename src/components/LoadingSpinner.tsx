@@ -1,14 +1,21 @@
-interface LoadingSpinnerProps {}
+interface LoadingSpinnerProps {
+    full: boolean;
+    size: string;
+}
 
-export default function LoadingSpinner({}) {
+export default function LoadingSpinner({ full, size }: LoadingSpinnerProps) {
     return (
         <div
             role="status"
-            className="flex justify-center items-center h-screen"
+            className={`flex justify-center items-center ${
+                full ? "h-screen" : ""
+            }`}
         >
             <svg
                 aria-hidden="true"
-                className="w-16 h-16 text-gray-200 animate-spin dark:text-gray-600 fill-neutral-900"
+                className={`${
+                    size === "small" ? "w-8" : "w-24"
+                } text-gray-200 animate-spin dark:text-gray-600 dark:fill-neutral-100 fill-neutral-900`}
                 viewBox="0 0 100 101"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"

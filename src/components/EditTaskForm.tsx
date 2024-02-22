@@ -72,11 +72,11 @@ export default function EditTaskForm({ id }: EditTaskFormProps) {
     }
 
     if (isLoading || isFetching) {
-        return <LoadingSpinner />;
+        return <LoadingSpinner full={true} size={'big'}/>;
     }
 
     return (
-        <div className="border p-10 lg:w-2/5 rounded-lg bg-white dark:bg-neutral-950 dark:border-neutral-700">
+        <div className="border p-10 w-4/5 lg:w-3/5 xl:w-2/5 rounded-lg bg-white dark:bg-neutral-950 dark:border-neutral-700">
             <div className="flex justify-between items-center mb-10">
                 <h1 className="text-3xl font-bold text-neutral-900 dark:text-white">
                     Edit task

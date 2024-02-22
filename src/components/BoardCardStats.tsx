@@ -4,6 +4,7 @@ import { Task } from "@/xata";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchTaskByBoard } from "@/actions/fetchTask";
+import LoadingSpinner from "./LoadingSpinner";
 
 interface BoardCardStatsProps {
     id: string;
@@ -60,7 +61,8 @@ export default function BoardCardStats({ id }: BoardCardStatsProps) {
         fetchData();
     }, [id]);*/
 
-    if (isLoading || isFetching) return <p>Loading...</p>;
+    if (isLoading || isFetching)
+        return <LoadingSpinner size={"small"} full={false} />;
 
     const percentages = calculatePercentage(data as Task[]);
 

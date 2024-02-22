@@ -112,7 +112,7 @@ export default function Page({ ...props }: pageProps) {
     };
 
     if (isLoading || isFetching) {
-        return <LoadingSpinner />;
+        return <LoadingSpinner size="big" full={true} />;
     }
 
     return (

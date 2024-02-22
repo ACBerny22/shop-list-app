@@ -32,7 +32,7 @@ export default function Page() {
                 </span>
             </Link>
 
-            <div className="border p-10 w-2/5 rounded-lg bg-white dark:bg-neutral-950 dark:border-neutral-700">
+            <div className="border p-10 w-4/5 lg:w-3/5 xl:w-2/5 rounded-lg bg-white dark:bg-neutral-950 dark:border-neutral-700">
                 <div className="mb-10">
                     <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-2">
                         Create new board
